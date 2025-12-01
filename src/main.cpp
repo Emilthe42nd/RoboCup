@@ -4,7 +4,9 @@
 using namespace Robot;
 
 void setup() {
-
+  pinMode(LEDR, OUTPUT);
+  pinMode(LEDG, OUTPUT);
+  pinMode(LEDB, OUTPUT);
 }
 
 
