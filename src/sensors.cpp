@@ -5,6 +5,8 @@
 #include <utility/imumaths.h>
 #include <array>
 
+#include "sensors.h"
+
 using namespace Robot;
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55);

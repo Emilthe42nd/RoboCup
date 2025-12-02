@@ -14,7 +14,7 @@ std::array<int, 3> wheelAngles = {60, 180, 300};
 
 namespace Robot {
   namespace Motor {
-    // TODO: Implement handling of multiple motors (all three)
+    // TODO: Implement handling of multiple motors (all three Motors)
     void rotateSingleMotor(float normalizedRate, bool reversed) {
       // de-normalize the rate
       int PWM_Rate = normalizedRate * 255.0f;
