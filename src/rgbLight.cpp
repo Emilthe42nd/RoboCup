@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+#include "rgbLight.h"
+
 using namespace Robot;
 
 namespace Robot {
