@@ -5,7 +5,7 @@ namespace Robot {
   namespace Motor {
 
     // Little helper function meant to not be used externally
-    void rotateSingleMotor(float normalizedRate, bool reversed);
+    void rotateSingleMotor(float normalizedRate, bool reversed, int motor);
 
     // Another helper funcion important for the moveRobot function
     float handleSingleWheel(float wheelAngle, float vx, float vy, float angularSpeed);

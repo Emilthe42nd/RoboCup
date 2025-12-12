@@ -1,5 +1,6 @@
 #include "utils.h"
 #include <Arduino.h>
+#include "constants.h"
 
 #include "motors.h"
 
@@ -17,16 +18,15 @@ std::array<int, 3> wheelAngles = {60, 180, 300};
 namespace Robot {
   namespace Motor {
     // TODO: Implement handling of multiple motors (all three Motors)
-    void rotateSingleMotor(float normalizedRate, bool reversed) {
+    void rotateSingleMotor(float normalizedRate, bool reversed, int motor) {
       // de-normalize the rate
       int PWM_Rate = normalizedRate * 255.0f;
 
       // make sure that both direktion Pins and the PWM are set to zero before applying settings
       // This is to prevent shortages and similar errors
 
-      digitalWrite(dir1Pin, LOW);
-      digitalWrite(dir2Pin, LOW);
-      analogWrite(PWM_Pin, 0);
+      digitalWrite(5, LOW);
+      digitalWrite(4, LOW);
 
       // wait for a very short period, for extra safety
       // TODO: IF PERFORMANCE CRITICAL, CHANGE/REMOVE
@@ -34,14 +34,14 @@ namespace Robot {
 
       // now apply direction settings and set the PWM Pin:
       if (reversed) {
-        digitalWrite(dir1Pin, LOW);
-        digitalWrite(dir2Pin, HIGH);
+        digitalWrite(5, LOW);
+        digitalWrite(4, HIGH);
       } else {
-        digitalWrite(dir1Pin, HIGH);
-        digitalWrite(dir2Pin, LOW);
+        digitalWrite(5, HIGH);
+        digitalWrite(4, LOW);
       }
 
-      analogWrite(PWM_Pin, PWM_Rate);
+      analogWrite(6, PWM_Rate);
     }
 
     // Gives the speed of a single wheel using the formula '''vx * sin(θᵢ) - vy * cos(θᵢ) + ω * r'''
@@ -114,9 +114,9 @@ namespace Robot {
       // We need to check if the rate is negative, negative PWM duty cycles would be bad.
       for (int n = 0; n < 3; n++) {
         if (wheelSpeeds[n] < 0) {
-          Motor::rotateSingleMotor(-wheelSpeeds[n], true);
+          Motor::rotateSingleMotor(-wheelSpeeds[n], true, n);
         } else {
-          Motor::rotateSingleMotor(wheelSpeeds[n], false);
+          Motor::rotateSingleMotor(wheelSpeeds[n], false, n);
         }
       }
 

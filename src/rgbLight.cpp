@@ -1,5 +1,5 @@
 #include <Arduino.h>
-
+#include <WiFiNINA.h> 
 #include "rgbLight.h"
 
 using namespace Robot;

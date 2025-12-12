@@ -11,6 +11,9 @@ namespace Robot {
     // reads the z rotation of the ABS
     void readAbsoluteOrientation(float& angle);
 
+
+    // reads the (preprocessed) main sensor and signal strength from the IR Seeker
+    void readIrSeeker(int& direction, int& strength);
   };
 };
 
