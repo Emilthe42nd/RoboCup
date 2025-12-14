@@ -114,8 +114,10 @@ namespace Robot {
       // We need to check if the rate is negative, negative PWM duty cycles would be bad.
       for (int n = 0; n < 3; n++) {
         if (wheelSpeeds[n] < 0) {
+          // Negate the Speed, invert the direction
           Motor::rotateSingleMotor(-wheelSpeeds[n], true, n);
         } else {
+          // Normal Rotation 
           Motor::rotateSingleMotor(wheelSpeeds[n], false, n);
         }
       }
