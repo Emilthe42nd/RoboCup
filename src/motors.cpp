@@ -28,9 +28,9 @@ namespace Robot {
       digitalWrite(5, LOW);
       digitalWrite(4, LOW);
 
-      // wait for a very short period, for extra safety
-      // TODO: IF PERFORMANCE CRITICAL, CHANGE/REMOVE
-      delay(2);
+      // wait for a very short period, for extra safetys
+      // That won't hurt performances
+      delayMicroseconds(2);
 
       // now apply direction settings and set the PWM Pin:
       if (reversed) {

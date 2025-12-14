@@ -1,4 +1,5 @@
 #include <cmath>
+#include <array>
 #include "utils.h"
 
 
@@ -14,6 +15,7 @@ namespace Robot {
     }
 
     float convertToRad(float& angleDegrees) {
+      angleDegrees = angleDegrees * (PI / 180.0f);
       return angleDegrees * (PI / 180.0f);
     }
 
@@ -40,5 +42,18 @@ namespace Robot {
       float angleDeg = acos(scalarProduct(Vector1, Vector2) / (getMagnitude2D(Vector1) * getMagnitude2D(Vector2)));
       return angleDeg;
     }
+
+
+    // Rotates a 2D Vector (by reference) CCW, using a simple rotation Matrix
+    std::array<float, 2> rotate2DVector(std::array<float, 2>& Vector, float radToRotate) {
+      float s = sin(radToRotate);
+      float c = cos(radToRotate);
+      float x = Vector[0];
+      float y = Vector[1];
+
+      Vector = {(x * c) - (s * y),
+                (s * x) + (c * y)};
+    }
+
   }
 }

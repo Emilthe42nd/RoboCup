@@ -6,6 +6,7 @@
 #include <utility/imumaths.h>
 #include <array>
 
+#include "constants.h"
 #include "sensors.h"
 
 using namespace Robot;
@@ -104,20 +105,39 @@ namespace Robot {
       dataBroken = false;
     }
 
+    void readDistanceSensor(int sensor, int& distance) {
+      digitalWrite(PINS::DISTANCEPINS[sensor].TRIG, LOW);
+      delayMicroseconds(2);
+      digitalWrite(PINS::DISTANCEPINS[sensor].TRIG,  HIGH);
+      delayMicroseconds(10);
+      digitalWrite(PINS::DISTANCEPINS[sensor].TRIG, LOW);
+
+      const unsigned long duration= pulseIn(PINS::DISTANCEPINS[sensor].ECHO, HIGH);
+      int distance= duration/29/2;
+      if (duration==0){
+        Serial.println("Warning: no pulse from sensor");
+      }
+    }
+
 
     // Reads the IR Seeker using I2C
     void readIrSeeker(int& direction, int& strength) {
+      // Ensure Wire is initialized (should already be done in setup, but safe to call multiple times)
       Wire.begin();
+      
       // Get the raw data
-      Wire.requestFrom(0x10 / 2, 2);
-      while (Wire.available()) {     
-        int c = Wire.read();
-        direction = c; // direction is the first byte    
-        
-        //smaller number the closer the ball
-        int d = Wire.read();
-        strength = d; 
-      }  
+      // This shitty sensor only gives Strogest sensor (in number from 1-12) and signal strength
+      uint8_t bytesReceived = Wire.requestFrom(0x10 / 2, 2);
+      delayMicroseconds(3);
+      // Read the bytes if available
+      if (bytesReceived >= 2) {
+        direction = Wire.read(); // direction is the first byte    
+        strength = Wire.read(); // smaller number the closer the ball
+      } else {
+        // If we didn't get 2 bytes, set default values
+        direction = 0;
+        strength = 0;
+      }
       delay(250);
     }
 

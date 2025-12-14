@@ -2,7 +2,7 @@
 #define CONSTANTS_H
 
 namespace Robot {
-  namespace Pins {
+  namespace PINS {
     // Struct for storing the pin layouts for the motors
     struct MotorPin {
       int PWM;
@@ -11,11 +11,21 @@ namespace Robot {
     };
 
     // TODO: Replace with actual Pins 
-    const MotorPin MOTORPINS[3] = {{6, 5, 4}, 
+    constexpr MotorPin MOTORPINS[3] = {{6, 5, 4}, 
                                    {6, 5, 4}, 
                                    {6, 5, 4}};
 
 
+    struct DistancePin {
+      int TRIG;
+      int ECHO;
+    };
+
+    // TODO: CHANGE TO ACTUAL VALUES
+    constexpr DistancePin DISTANCEPINS[4] = {{1, 2},
+                                         {1, 2},
+                                         {1, 2},
+                                         {1, 2}};
 
   };
 

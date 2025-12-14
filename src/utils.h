@@ -22,6 +22,8 @@ namespace Robot {
     // Calculate angle between two 2D vectors
     float getVectorAngle(float Vector1[2], float Vector2[2]);
     
+    // Rotates a 2D Vector (by reference) CCW, using a simple rotation Matrix
+    std::array<float, 2> rotate2DVector(std::array<float, 2>& Vector, float radToRotate);
   }
 }
 

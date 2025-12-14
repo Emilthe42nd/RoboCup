@@ -15,10 +15,17 @@ void setup() {
 
   // Initialize all the motors:
   for (int n = 0; n < 3; n++) {
-    pinMode(6, OUTPUT);
-    pinMode(5, OUTPUT);
-    pinMode(4, OUTPUT);
+    pinMode(PINS::MOTORPINS[n].DIR_A, OUTPUT);
+    pinMode(PINS::MOTORPINS[n].DIR_B, OUTPUT);
+    pinMode(PINS::MOTORPINS[n].PWM, OUTPUT);
   }
+
+  // Init Distance sensors:
+  for (int n = 0; n < 4; n++) {
+    pinMode(PINS::DISTANCEPINS[n].TRIG, INPUT);
+    pinMode(PINS::DISTANCEPINS[n].TRIG, OUTPUT);
+  }
+
   // Initialize the RGB Light on the board:
   pinMode(LEDR, OUTPUT);
   pinMode(LEDG, OUTPUT);
